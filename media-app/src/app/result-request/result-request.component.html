@@ -1,0 +1,26 @@
+<div class="result-request d-flex my-3 align-items-center bg-white shadow">
+  <a routerLink="/profile/{{searchResult._id}}" class="p-4 w-max"><img src="/assets/images/{{searchResult.profile_image}}.jpg" class="profile-img-md rounded"></a>
+  <div>
+      <h5><a routerLink="/profile/{{searchResult._id}}" class="link">{{searchResult.name}}</a></h5>
+      <h6>{{searchResult.email}}</h6>
+      <!-- <div class="small">7 Mutual Friends</div> -->
+  </div>
+  <div class="ml-auto mr-3 mt-3 align-self-start">
+      <button class="btn btn-sm btn-primary rounded-pill"
+      *ngIf="switchUse == 'result' && !haveSentFriendRequest && !haveReceivedFriendRequest && !isFriend"
+      (click)="sendFriendRequest(searchResult._id); haveSentFriendRequest = true">Add Friend</button>
+      <button class="btn btn-sm btn-warning rounded-pill ml-2" data-toggle="modal"
+      *ngIf="haveSentFriendRequest"
+      data-target="#staticBackdrop">Friend Request Pending</button>
+      <button class="btn btn-sm btn-info rounded-pill"
+      *ngIf="isFriend" routerLink="/profile/{{searchResult._id}}">View Profile</button>
+      <button class="btn btn-sm btn-primary rounded-pill"
+      *ngIf="switchUse =='request' || haveReceivedFriendRequest"
+      (click)="acceptFriendRequest(); haveReceivedFriendRequest=false; isFriend=true">Accept</button>
+      <button class="btn btn-sm btn-success rounded-pill ml-2" data-toggle="modal" data-target="#staticBackdrop" (click)="updateSendMessage(searchResult._id, searchResult.name)">Send Message</button>
+      <button
+      *ngIf="switchUse =='request' || haveReceivedFriendRequest"
+      class="btn btn-sm btn-danger rounded-pill ml-2" (click)="declineFriendRequest(); haveReceivedFriendRequest=false">Decline Friend</button>
+  </div>
+
+</div>
